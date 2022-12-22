@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scripts-cm
+data:
+  locustfile.py: |
+    from locust import task, HttpUser
+    import json
+
+
+		class MyUser(HttpUser):
+				host = "https://fsl-gaming.niveussolutions.com"
+				@task
+				
+				def index(self):
+					self.client.headers.update({
+						'Content-Type': 'application/json',
+						'Accept': 'application/json'
+					})
+					resp = self.client.post("/user/api/createUser",data=json.dumps({
+					"mobileNumber": "9988776655"
+					}))
+					print(resp.text)

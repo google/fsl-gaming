@@ -1,0 +1,1382 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: FSL Resource Management Service
+
+# basePath prefixes all resource
+basePath: /resource-management/api
+
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+
+paths:
+  
+
+  /team:
+    post:
+      tags:
+        - "Team"
+      summary: "createTeam"
+      description: "create Team data."
+      operationId: "createTeam"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "TeamController"
+
+  /team/{id}:
+    get:
+      tags:
+        - "Team"
+      summary: "get Team by ID"
+      description: "get Teamby ID data"
+      operationId: "getTeambyID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "TeamController"
+
+  /teams:
+    get:
+      tags:
+        - "Team"
+      summary: "getAllTeams"
+      description: "get All Teams data"
+      operationId: "getAllTeams"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "TeamController"
+
+      
+  /playersbulk:
+    post:
+      tags:
+        - "Players"
+      summary: "createPlayersBulk"
+      description: "create Players."
+      operationId: "createPlayersBulk"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createPlayersBulk"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "playersController"
+
+  /player:
+    post:
+      tags:
+        - "Players"
+      summary: "createPlayers"
+      description: "create Players."
+      operationId: "createPlayers"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createPlayers"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "playersController"
+
+  /player/{id}:
+    patch:
+        tags:
+          - "Players"
+        summary: "update Player"
+        description: "update player."
+        operationId: "updatePlayer"
+        produces:
+          - "application/json"
+        parameters:
+          - in: path
+            name: "id"
+            type: string  
+            description: ""
+            required: true
+          - in: "body"
+            name: "body"
+            description: ""
+            required: false
+            schema:
+              $ref: "#/definitions/updatePlayer"
+        responses:
+          default:
+            description: "successful operation"
+        x-swagger-router-controller: "playersController"
+
+
+  /player/players/{playerid}:
+    get:
+      tags:
+        - "Players"
+      summary: "getPlayerbyID"
+      description: "get player by ID data"
+      operationId: "getPlayerbyID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "playerid"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "playersController" 
+      
+  /players/{teamid}:
+    get:
+      tags:
+        - "Players"
+      summary: "get Players by TeamID"
+      description: "get players by team ID data"
+      operationId: "getPlayersbyTeamID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "teamid"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "playersController"
+
+  /contest:
+    post:
+      tags:
+        - "Contest"
+      summary: "createContest"
+      description: "create Contest."
+      operationId: "createContest"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createContest"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+  /playing11:
+    post:
+      tags:
+        - "Contest"
+      summary: "createPlaying11"
+      description: "createPlaying11."
+      operationId: "createPlaying11"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createPlaying11"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+      
+  /players:
+    get:
+      tags:
+        - "Players"
+      summary: "getAllPlayers"
+      description: "get All players data"
+      operationId: "getAllPlayers"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "playersController"
+
+    
+  /contests:
+    get:
+      tags:
+        - "Contest"
+      summary: "getAllContests"
+      description: "get All Contests data"
+      operationId: "getAllContests"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+  /contest/{id}:
+    get:
+      tags:
+        - "Contest"
+      summary: "get Contest by ID"
+      description: "get contest by team ID data"
+      operationId: "getContestbyID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+  /contestresult/{id}:
+    get:
+      tags:
+        - "Contest"
+      summary: "get Contest Result by ID"
+      description: "get Contest Result by Contest ID "
+      operationId: "getContestResultbyID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+  /contests/matches/{matchid}:
+    get:
+      tags:
+        - "Contest"
+      summary: "getContestsByMatchID"
+      description: "get Contests by mMtch ID data"
+      operationId: "getContestsByMatchID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "matchid"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+  /contests/active-status:
+    get:
+      tags:
+        - "Contest"
+      summary: "getContestsByActiveStatus"
+      description: "get Contests by Active Status data"
+      operationId: "getContestsByActiveStatus"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+  
+  /contests/scheduled-status:
+    get:
+      tags:
+        - "Contest"
+      summary: "get Contests By Scheduled Status"
+      description: "get Contests by Scheduled Status data"
+      operationId: "getContestsByScheduledStatus"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+  /contests/completed-status:
+    get:
+      tags:
+        - "Contest"
+      summary: "getContestsByCompletedStatus"
+      description: "get Contests by Completed Status data"
+      operationId: "getContestsByCompletedStatus"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+
+  /contest-leaderboard:
+    post:
+      tags:
+        - "Contest Leaderboard"
+      summary: "createContestLeaderboard"
+      description: "Create Contest Leaderboard."
+      operationId: "createContestLeaderboard"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createContestLeaderboard"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestLeaderboardController"
+
+  /winnerslist:
+    post:
+      tags:
+        - "Contest Leaderboard"
+      summary: "createContestLeaderboard"
+      description: "Create Contest Leaderboard."
+      operationId: "updateWinnersList"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/updateWinnersList"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+  /all-contestleaderboard:
+    get:
+      tags:
+        - "Contest Leaderboard"
+      summary: "getAllContestLeaderboard"
+      description: "get all Contests leaderboard data"
+      operationId: "getAllContestLeaderboard"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestLeaderboardController"
+
+  /contest-leaderboard/{id}:
+    get:
+      tags:
+        - "Contest Leaderboard"
+      summary: "getContestLeaderboardByID"
+      description: "get Contest leaderboard by leaderboard ID data"
+      operationId: "getContestLeaderboardByID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestLeaderboardController"
+
+  /contest-leaderboard-by-contestID/{id}:
+    get:
+      tags:
+        - "Contest Leaderboard"
+      summary: "getContestLeaderboardByContestID"
+      description: "get contest leaderboard by Contest ID data"
+      operationId: "getContestLeaderboardByContestID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestLeaderboardController"
+  
+  
+
+  /player-leaderboard-bulk:
+    post:
+      tags:
+        - "Player Leaderboard"
+      summary: "createPlayerLeaderboardBulk"
+      description: "Create Player Leaderboard Bulk."
+      operationId: "createPlayerLeaderboardBulk"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createPlayerLeaderboardBulk"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "PlayerLeaderboardController"
+
+  /player-leaderboard:
+    post:
+      tags:
+        - "Player Leaderboard"
+      summary: "createPlayerLeaderboard"
+      description: "Create Player Leaderboard."
+      operationId: "createPlayerLeaderboard"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createPlayerLeaderboard"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "PlayerLeaderboardController"
+  /players-leaderboard:
+    get:
+      tags:
+        - "Player Leaderboard"
+      summary: "getAllPlayerLeaderboard"
+      description: "get all players leaderboard data"
+      operationId: "getAllPlayerLeaderboard"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "PlayerLeaderboardController"
+
+  /player-leaderboard/{id}:
+    get:
+      tags:
+        - "Player Leaderboard"
+      summary: "getPlayerLeaderboardByID"
+      description: "get player leaderboard by leaderboard ID data"
+      operationId: "getPlayerLeaderboardByID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "PlayerLeaderboardController"
+
+  /player-leaderboard-by-matchID/{id}:
+    get:
+      tags:
+        - "Player Leaderboard"
+      summary: "getPlayerLeaderboardByMatchID"
+      description: "get player leaderboard by match ID data"
+      operationId: "getPlayerLeaderboardByMatchID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "PlayerLeaderboardController"
+
+  /player-leaderboard-by-playerID/{id}:
+    get:
+      tags:
+        - "Player Leaderboard"
+      summary: "getPlayerLeaderboardByPlayerID"
+      description: "get player leaderboard by player ID data"
+      operationId: "getPlayerLeaderboardByPlayerID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "PlayerLeaderboardController"
+
+  /player-leaderboard-points:
+    patch:
+      tags:
+        - "Player Leaderboard"
+      summary: "updatePlayerLeaderboardPoints"
+      description: "update Player Leaderboard."
+      operationId: "updatePlayerLeaderboardPoints"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: false
+          schema:
+            $ref: "#/definitions/updatePlayerLeaderboardPoints"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "PlayerLeaderboardController"
+
+
+  /match/{id}:
+    patch:
+      tags:
+        - "Match"
+      summary: "updateMatch"
+      description: "update match details."
+      operationId: "updateMatch"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+        - in: "body"
+          name: "body"
+          description: ""
+          required: false
+          schema:
+            $ref: "#/definitions/updateMatch"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchController"
+
+  /user:
+    post:
+      tags:
+        - "User"
+      summary: "createUser"
+      description: "Create User data."
+      operationId: "createUser"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createUser"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "UserController"
+
+  /match-auto:
+    post:
+      tags:
+        - "Match"
+      summary: "createMatchAuto"
+      description: "create Match data"
+      operationId: "createMatchAuto"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchController"
+
+  /match:
+    post:
+      tags:
+        - "Match"
+      summary: "createMatch"
+      description: "Create Match data."
+      operationId: "createMatch"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createMatch"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchController"
+
+  /match-result:
+    post:
+      tags:
+        - "MatchResult"
+      summary: "createMatchResult"
+      description: "create Match Result."
+      operationId: "createMatchResult"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createMatchResult"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchResultController"
+
+
+  # /createMatchAuto:
+    # post:
+    #   tags:
+    #     - "Match"
+    #   summary: "createMatch"
+    #   description: "create Match data"
+    #   operationId: "createMatchAuto"
+    #   produces:
+    #     - "application/json"
+    #   # parameters:
+    #   #   - in: path
+    #   #     name: "id"
+    #   #     type: string
+    #   #     description: ""
+    #   #     required: true
+    #   responses:
+    #     default:
+    #       description: "successful operation"
+    #   x-swagger-router-controller: "MatchController"
+      
+  /matchs/{id}:
+    get:
+      tags:
+        - "Match"
+      summary: "getMatchByID"
+      description: "get Match By ID data"
+      operationId: "getMatchByID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchController"
+
+  /fantasy-team-details:
+    post:
+      tags:
+        - "Fantasy Team Details"
+      summary: "createFantasyTeamDetails"
+      description: " fantasy Team Details data."
+      operationId: "createFantasyTeamDetails"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createFantasyTeamDetails"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "FantasyController"
+
+  /fantasy-team-squad-details-bulk:
+    post:
+      tags:
+        - "Fantasy Team Squad Details"
+      summary: "createFantasyTeamSquadDetailsBulk"
+      description: " fantasy Team Squad Details data."
+      operationId: "createFantasyTeamSquadDetailsBulk"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createFantasyTeamSquadDetailsBulk"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "FantasySquadController"
+  
+  /fantasy-team-squad-details:
+    post:
+      tags:
+        - "Fantasy Team Squad Details"
+      summary: "createFantasyTeamSquadDetails"
+      description: " fantasy Team Squad Details data."
+      operationId: "createFantasyTeamSquadDetails"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/createFantasyTeamSquadDetails"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "FantasySquadController"
+
+  /users:
+    get:
+      tags:
+        - "User"
+      summary: "getAllUsers"
+      description: "get All Users data"
+      operationId: "getAllUsers"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "UserController"
+
+  /all-Match:
+    get:
+      tags:
+        - "Match"
+      summary: "getAllMatch"
+      description: "get All Match data"
+      operationId: "getAllMatch"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchController"
+
+  /matches/{id}:
+    get:
+      tags:
+        - "Match"
+      summary: "getMatchesByTeamID"
+      description: "get Match By Team ID data"
+      operationId: "getMatchesByTeamID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchController"
+
+
+
+  /fantasy-team-details/{id}:
+    get:
+      tags:
+        - "Fantasy Team Details"
+      summary: "getFantasyTeamsDetailsByID"
+      description: "get All Fantasy Teams Details data"
+      operationId: "getFantasyTeamsDetailsByID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "FantasyController"
+
+
+
+  /fantasy-team-details-userID/{id}:
+    get:
+      tags:
+        - "Fantasy Team Details"
+      summary: "getFantasyTeamsDetailsByUserID"
+      description: "get All Fantasy Teams Details By User IDdata"
+      operationId: "getFantasyTeamsDetailsByUserID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "FantasyController"
+
+
+
+  /fantasy-team-details-contestID/{id}:
+    get:
+      tags:
+        - "Fantasy Team Details"
+      summary: "getFantasyTeamsDetailsByContestID"
+      description: "get All Fantasy Teams Details By Contest ID data"
+      operationId: "getFantasyTeamsDetailsByContestID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "FantasyController"
+
+
+  /fantasy-team-squad-details/{id}:
+    get:
+      tags:
+        - "Fantasy Team Squad Details"
+      summary: "getFantasyTeamsSquadDetailsByFantasyTeamID"
+      description: "get Fantasy Teams Details By Fantasy Team ID data"
+      operationId: "getFantasyTeamsSquadDetailsByFantasyTeamID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "FantasySquadController"
+
+  /user/{id}:
+    get:
+      tags:
+        - "User"
+      summary: "getUserByID"
+      description: "get User By ID data"
+      operationId: "getUserByID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "UserController"
+
+  /teams/{id}:
+    patch:
+      tags:
+        - "Team"
+      summary: "updateTeam"
+      description: "update Team."
+      operationId: "updateTeam"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+        - in: "body"
+          name: "body"
+          description: ""
+          required: false
+          schema:
+            $ref: "#/definitions/updateTeam"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "TeamController"
+  
+  /match-timelines/{id}:
+    get:
+      tags:
+        - "Match Timeline"
+      summary: "getMatchTimelineByMatchID"
+      description: "get Match Timeline By Match ID data"
+      operationId: "getMatchTimelineByMatchID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchTimelineController"
+
+  
+  /player-leaderboard-score/{playerUuid}/{matchUuid}:
+    get:
+      tags:
+        - "Player Leaderboard"
+      summary: "getPlayerLeaderboardScore"
+      description: "get player leaderboard  Score ID data"
+      operationId: "getPlayerLeaderboardScore"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "playerUuid"
+          type: string  
+          description: ""
+          required: true
+        - in: path
+          name: "matchUuid"
+          type: string  
+          description: ""
+          required: true    
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "PlayerLeaderboardController"
+ 
+
+  /contests/{id}:
+    patch:
+      tags:
+        - "Contest"
+      summary: "updateContest"
+      description: "update Config."
+      operationId: "updateContest"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+        - in: "body"
+          name: "body"
+          description: ""
+          required: false
+          schema:
+            $ref: "#/definitions/updateContest"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "ContestController"
+
+  /match-results/{id}:
+    get:
+      tags:
+        - "MatchResult"
+      summary: "getMatchResults By ContestID"
+      description: "Get Match Results By ContestID"
+      operationId: "getMatchResultsByContestID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchResultController"
+
+  /match-timeline:
+    post:
+      tags:
+        - "Match Timeline"
+      summary: "createMatchTimeline"
+      description: "Create match timeline data."
+      operationId: "createMatchTimeline"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: false
+          schema:
+            $ref: "#/definitions/createMatchTimeline"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchTimelineController"
+      
+  /match-timeline/{id}:
+    patch:
+      tags:
+        - "Match Timeline"
+      summary: "updateMatchTimeline"
+      description: "update Config."
+      operationId: "updateMatchTimeline"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "id"
+          type: string  
+          description: ""
+          required: true
+        - in: "body"
+          name: "body"
+          description: ""
+          required: false
+          schema:
+            $ref: "#/definitions/updateMatchTimeline"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "MatchTimelineController"
+
+
+  /score:
+    patch:
+      tags:
+        - "Leaderboard Test "
+      summary: "score"
+      description: "Score"
+      operationId: "updateScore"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: false
+          schema:
+            $ref: "#/definitions/updateScore"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "UpdateScoreController"
+  /redis:
+     delete:
+      tags:
+        - "Redis"
+      summary: " Flush the Redis"
+      description: "Flush the Redis"
+      operationId: "clearRedis"
+      produces:
+        - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "RedisController"
+
+  
+
+definitions:
+  updateWinnersList:
+    type: "object"
+    properties:
+      contestId:
+        type: "string"
+      results:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            score:
+              type: "number"
+            value:
+              type: "string"
+
+
+  createUser:
+    type: "object"
+    properties:
+      mobileNumber:
+        type: "string"
+
+
+  createPlayersBulk:
+    type: "object"
+    properties:
+      teamUuid:
+        type: "string"     
+
+  createPlayers:
+    type: "object"
+    properties:
+      teamUuid:
+        type: "string" 
+      category:
+        type: "string" 
+        enum: ["Batsman", "Bowler", "Allrounder", "Wicket Keeper"]
+
+  createContest:
+    type: "object"
+    properties:
+      matchUuid:
+        type: "string" 
+
+  createContestLeaderboard:
+    type: "object"
+    properties:
+      playerUuid:
+        type: "string"
+      matchUuid:
+        type: "string"
+      fantasyTeamUuid:
+        type: "string"
+      contestUuid:
+        type: "string"
+      isCaptain:
+        type: "boolean"
+      isVCaptain:
+        type: "boolean"
+
+
+  createPlayerLeaderboardBulk:
+    type: "object"
+    properties:
+      matchUuid:
+        type: "string"
+
+  createFantasyTeamDetails:
+    type: "object"
+    properties:
+      userUuid:
+        type: "string"
+      contestUuid:
+        type: "string"
+
+  createFantasyTeamSquadDetailsBulk:
+    type: "object"
+    properties:
+      fantasyTeamUuid:
+        type: "string"
+
+
+  createFantasyTeamSquadDetails:
+    type: "object"
+    properties:
+      fantasyTeamUuid:
+        type: "string"
+      playerUuid:
+        type: "string"  
+      isCaptain:
+        type: "boolean"
+      isVCaptain:
+        type: "boolean"
+
+ 
+
+      
+  createPlaying11:
+    type: "object" 
+    properties:
+      matchUuid:
+        type: "string"
+  
+  updateTeam:
+    type: "object"
+    properties:
+      teamName:
+        type: "string"
+      availablePlayers:
+        type: "integer"
+
+
+  
+
+  updatePlayerLeaderboardPoints:
+    type: "object"
+    properties:
+      points:
+        type: "integer"
+      playerUuid:
+        type: "string"
+      matchUuid:
+        type: "string"
+
+  createMatch:
+    type: "object"
+    properties:
+      team1Uuid:
+        type: "string" 
+      team2Uuid:
+        type: "string"
+
+  updatePlayer:
+    type: "object"
+    properties:
+      playerName:
+        type: "string"
+      category:
+        type: "string"
+        enum: ["Batsman", "Bowler", "Allrounder", "Wicket Keeper"]
+    
+  updateMatch:
+    type: "object"
+    properties:
+      matchTime:
+        type: "string"
+        format: "date-time"
+      matchStatus:
+        type: "string"
+        enum: ["SCHEDULED", "ACTIVE", "COMPLETED"]
+
+  updateContest:
+    type: "object"
+    properties:
+      slot:
+        type: "integer"
+      contestStatus:
+        type: "string"
+
+  updateMatchTimeline:
+    type: "object"
+    properties:
+      over_count:
+        type: "integer"
+      ball_count:
+        type: "integer"
+      score:
+        type: "integer"
+      hasLostWicket:
+        type: "boolean"
+      hasExtra:
+        type: "boolean"
+
+  createPlayerLeaderboard:
+    type: "object"
+    properties:
+      playerUuid:
+        type: "string"
+      matchUuid:
+        type: "string"
+
+  updateScore:
+    type: "object"
+    properties:
+      queryData:
+        type: "object"
+        properties:
+          limitValue:
+            type: "integer"
+          offsetValue:
+            type: "integer"
+          matchUuid:
+            type: "string"
+          playerUuid:
+            type: "string"
+      overCount:
+        type: "string"
+      points:
+        type: "number"
+
+  createMatchTimeline :
+    type: "object"
+    properties:
+      matchUuid:
+        type: "string" 
+      batsmanUuid:
+        type: "string" 
+      bowlerUuid:
+        type: "string"
+      over_count:
+        type: "integer" 
+      ball_count:
+        type: "integer"
+      score:
+        type: "integer" 
+      hasLostWicket:
+        type: "boolean"
+      batsmanOutUuid:
+        type: "string"
+      wicketType: 
+        type: "string" 
+      hasExtra:
+        type: "boolean"
+      extraType:
+        type: "string"
+
+  createMatchResult:
+    type: "object"
+    properties:
+      matchUuid:
+        type: "string" 

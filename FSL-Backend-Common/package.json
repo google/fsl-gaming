@@ -1,0 +1,75 @@
+{
+  "name": "fsl-backend-common",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "pretest": "node_modules/.bin/eslint --ignore-path .gitignore . --fix",
+    "format": "prettier-eslint 'server/**/*.{js,json}' --write",
+    "lint": "eslint 'src/**/*.js' --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pretest"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "prettier-eslint --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "singleQuote": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "all",
+    "printWidth": 80,
+    "semi": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.niveussolutions.com:fsl-gaming/fsl-gaming/fsl-backend-common.git"
+  },
+  "author": "Niveus Solutions",
+  "license": "Unlicense",
+  "dependencies": {
+    "@google-cloud/pubsub": "^2.19.0",
+    "@google-cloud/scheduler": "^3.0.4",
+    "@google-cloud/spanner": "^5.16.3",
+    "@google-cloud/trace-agent": "^5.1.6",
+    "axios": "^0.26.1",
+    "dotenv": "^16.0.1",
+    "mysql2": "^1.6.5",
+    "node-cron": "^3.0.2",
+    "qs": "^6.10.3",
+    "redis": "^4.4.0",
+    "request": "^2.88.2",
+    "sequelize": "^5.8.11",
+    "sequelize-cli": "^5.5.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.18.9",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^8.23.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "husky": "^2.4.1",
+    "i": "^0.3.6",
+    "lint-staged": "^13.0.3",
+    "mocha": "^6.1.4",
+    "mocha-sonarqube-reporter": "^1.0.1",
+    "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
+    "prettier": "^2.7.1",
+    "prettier-eslint": "^15.0.1"
+  }
+}

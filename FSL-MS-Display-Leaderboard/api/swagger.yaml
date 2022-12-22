@@ -1,0 +1,63 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: FSL Leaderboard Display Service
+
+# basePath prefixes all resource
+basePath: /display-leaderboard/api
+
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+
+paths:
+  
+  /contest-leaderboard/{contest_id}:
+    get:
+      tags:
+        - "LeaderBoard"
+      summary: "LeaderBoard"
+      description: "Get Contest Leaderboard."
+      operationId: "getContestLeaderBoard"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "contest_id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "leaderBoardController"
+  
+  /player-leaderboard/{contest_id}/{fantasyteam_id}:
+    get:
+      tags:
+        - "LeaderBoard"
+      summary: "Leaderboard"
+      description: "Get PLayer Leaderboard."
+      operationId: "getFLPlayerLeaderBoard"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: "contest_id"
+          type: string  
+          description: ""
+          required: true
+        - in: path
+          name: "fantasyteam_id"
+          type: string  
+          description: ""
+          required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "leaderBoardController"
+
+  

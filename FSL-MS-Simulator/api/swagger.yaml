@@ -1,0 +1,87 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: FSL Simulator
+
+# basePath prefixes all resource
+basePath: /simulator/api
+
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+
+paths:
+  
+  /simulate-match:
+    post:
+      tags:
+        - "Simulate Match"
+      summary: "Simulate"
+      description: "Simulate."
+      operationId: "simulateMatch"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/simulateMatch"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "simulatorController"
+
+  /simulte-ball:
+    post:
+      tags:
+        - "simulte Ball"
+      summary: "Simulate"
+      description: "Simulate."
+      operationId: "simulteBall"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          schema:
+            $ref: "#/definitions/simulteBall"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "simulatorController"
+  
+
+definitions: 
+  simulateMatch:
+    type: "object"
+    properties:
+      match_id:
+        type: "string"
+  simulteBall:
+    type: "object"
+    properties: 
+      matchUuid:
+        type: "string"
+      onCreaseBatsman:
+        type: "string"
+      offCreaseBatsman:
+        type: "string"
+      currentBolwer:
+        type: "string"
+      ball:
+        type: "string"
+      onCreaseBatsmanOut:
+        type: "boolean"
+      isGoodBall:
+        type: "boolean"
+      ballCount: 
+        type: "integer"
+      OverCount:
+        type: "integer"   
+      
