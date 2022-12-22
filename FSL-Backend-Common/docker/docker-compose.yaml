@@ -1,0 +1,17 @@
+version: '3.2'
+
+services:
+  dev-resource_management-backend-fsl:
+    build:
+      context: ../../
+      dockerfile: ./FSL-Backend-Common/docker/Dockerfile.resource_management.dev      
+    image: fsl-resource_management:dev
+    container_name: fsl_dev_resource_management
+    ports:
+      - "5007:5007"
+    volumes:
+      - ../../FSL-MS-Resource-Management:/home/fsl-app
+      - ../../FSL-Backend-Common:/home/FSL-Backend-Common
+      - /home/FSL-Backend-Common/node_modules
+      - /home/fsl-app/node_modules
+    command: "npm start"

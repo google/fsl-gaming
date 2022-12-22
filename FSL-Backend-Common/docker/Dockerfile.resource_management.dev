@@ -1,0 +1,21 @@
+FROM alpine:3.12
+
+# Install nodeJS and npm
+RUN apk update \
+    && apk add nodejs npm    
+
+# Copy project files.
+COPY ./FSL-MS-Resource-Management/ /home/fsl-app/.
+
+# Copy project common.
+COPY ./FSL-Backend-Common/ /home/FSL-Backend-Common/.
+
+# Install npm packages.
+RUN cd /home/FSL-Backend-Common \
+    && npm install
+
+# Install npm packages.
+RUN cd /home/fsl-app \
+    && npm install
+    
+WORKDIR /home/fsl-app/

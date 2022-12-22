@@ -1,0 +1,78 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: FSL Leaderboard Update Service
+
+# basePath prefixes all resource
+basePath: /update-leaderboard/api
+
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+
+paths:
+  
+  /contest-leaderboard:
+    post:
+      tags:
+        - "Add to leaderBoard"
+      summary: "Add to Contest LeaderBoard "
+      description: "Add to Contest LeaderBoard "
+      operationId: "updateContestLeaderBoard"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/updateContestLeaderBoard"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "LeaderBoardController"
+  
+  
+
+  /player-leaderBoard:
+    post:
+      tags:
+        - "Add to leaderBoard"
+      summary: "Add to Contest LeaderBoard "
+      description: "Add to Contest LeaderBoard "
+      operationId: "updateFLPlayerLeaderBoard"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/updateContestLeaderBoard"
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "LeaderBoardController"
+
+definitions:
+  updateContestLeaderBoard:
+    type: "object"
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          properties:
+            bucketName:
+              type: "string"
+            score:
+              type: number
+            value:
+              type: string
+
+  

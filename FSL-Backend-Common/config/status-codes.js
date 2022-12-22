@@ -1,0 +1,13 @@
+exports.SUCCESS = 200;
+exports.CREATED = 201;
+exports.NO_CONTENT = 204;
+exports.NOT_FOUND = 404;
+exports.METHOD_NOT_ALLOWED = 405;
+exports.TOO_MANY_REQUESTS = 429;
+exports.BAD_REQUEST = 400;
+exports.SERVICE_UNAVAILABLE = 503;
+exports.ACCESS_DENIED_CODE = 403;
+exports.INTERNAL_ERROR = 500;
+exports.NOT_FOUND = 421;
+exports.INVALID_PHONE_NUMBER =422;
+exports.IN_PROGRESS =207

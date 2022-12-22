@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scripts-cm
+data:
+
+  locustfile.py: |
+    from locust import HttpUser, task, constant
+    import json
+
+    class getBookings(HttpUser):
+      host = "https://examvfdple.com"
+
+      @task
+      def get_bookings(self):
+        self.client.headers.update({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVXVpZCI6ImEwMGY4N2VhLTJhYTctNDg5ZS04YTcxLWE5NjJlMWVjZWFiZCIsIm1vYmlsZU51bWJlciI6Ijk4MzM1ODc1ODkiLCJyb2xlIjoiZGVhbGVyIiwiem9uZSI6Ildlc3QiLCJhcmVhT2ZmaWNlQ29kZSI6IkExNDAiLCJhcmVhT2ZmaWNlIjoiTXVtYmFpIiwiZGVhbGVyU2hpcCI6Ik5CMDAxIiwiaXNBY3RpdmUiOjEsImNyZWF0ZWREYXRlIjoiMjAyMi0wNS0yNVQxMjoxMjo1Mi40ODQwMDAwMDBaIiwibGFzdFVwZGF0ZWREYXRlIjoiMjAyMi0wNS0yNVQxMjoxMjo1Mi40ODQwMDAwMDBaIiwiZGVhbGVyVXVpZCI6IjEzMjRjODczLTg1YjktNGYzYS05NTYxLTdlZTAwNmRkNGIzMCIsImRlYWxlck1vYmlsZSI6bnVsbCwiY2l0eUNvZGUiOiJBQUEiLCJkZWFsZXJJZCI6bnVsbCwiZGVhbGVyQ29kZSI6IlNOMDEwNjAxIiwiZGVhbGVyTmFtZSI6Ik5CUyBJTlRFUk5BVElPTkFMIExURC4iLCJkZWFsZXJMb2NhbGl0eSI6IkFOREhFUkkgUkFJTFdBWSBTVEFUSU9OIiwiZGVhbGVyQWRkcmVzcyI6IlNUQU5ERk9SRCwgU1YgUk9BRCwgSlVIVSBUQVJBIExBTkUsIE5FQVIgU0hPUFBFUlMgU1RPUCwgQU5ESEVSSSBXRVNUIiwiYWN0aXZlSW5kaWNhdG9yIjoiWSIsImFyZWFvZmZpY2VEZXNjcmlwdGlvbiI6Ik1VTUJBSSIsImNpdHlEZXNjcmlwdGlvbiI6Ik1VTUJBSSIsInN0YXRlQ29kZSI6IjEzIiwic3RhdGVEZXNjcmlwdGlvbiI6Ik1haGFyYXNodHJhIiwicGFyZW50Q29kZSI6Ik5CMDAxIiwibG9jYXRpb25Db2RlIjoiTkIwNCIsImxvY2F0aW9uTmFtZSI6IkFOREhFUkkiLCJsb2NhdGlvblBpbkNvZGUiOiI0MDAwNTgiLCJyc21Ub2tlbiI6IjIzMTM2MDUyIiwibGF0aXR1ZGUiOiIxOS4xMTU5NCIsImxvbmdpdHVkZSI6IjcyLjg0MzM2IiwiaXNEdW1teSI6ZmFsc2UsImlzcyI6Ik1haGluZHJhIiwiaWF0IjoxNjUzNjI2NjM4LCJleHAiOjE2NTM2Mjc1Mzh9.n4ukstSkIuI-ja1B27UZjhPwu_bMmR67gwESvgc4On4'
+        })       
+        resp = self.client.get("/dealer/api/getBookingsdddddf")
+
+

@@ -1,0 +1,11 @@
+node_modules
+coverage
+nyc*
+.nyc_output/
+package-lock.json
+
+credentials/project-development/service_account_key.json
+credentials/project-qa/service_account_key.json
+credentials/project-uat/service_account_key.json
+credentials/project-production/service_account_key.json
+
