@@ -1,5 +1,4 @@
 # Fantasy Sports League Game
-
 This repository contains code for a sample FSL game using Cloud Spanner for the backend. There are multiple modules to the game:
 - FSL-Backend-Common
 - FSL-MS-Display-Leaderboard
@@ -7,6 +6,7 @@ This repository contains code for a sample FSL game using Cloud Spanner for the 
 - FSL-MS-Simulator
 - FSL-MS-Update-Leaderboard
 - FSL-Tools
+Please follow more detailed Readme's under each of the above git sections.
 
 ## Highlevel game architecture
 
