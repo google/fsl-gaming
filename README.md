@@ -9,7 +9,7 @@ This repository contains code for a sample FSL game using Cloud Spanner for the 
 Please follow more detailed Readme's under each of the above git sections.
 
 ## Highlevel game architecture
-
+![HighLevel-Architecture.png.png](images/HighLevel-Architecture.png)
 ## Resource Management
 ### Step 1
 Use the  /user  API endpoint  from the resource management microservice to add users to the game by making use of the phone number ( must be a 10-digit number).
@@ -189,7 +189,7 @@ Use locust to add the more fantasy team for a contest.
   * Python 3.7 or above
   * Locust [click here](https://docs.locust.io/en/stable/installation.html)
 - From the git repo checkout to FSL-tools folder. Open FantasyFlow.py file update the contestUuid to new contestUuid obtained from create contest API
-<Image goes here.>
+![FantasyFlow.png](images/FantasyFlow.png)
 - To run the script use the command locust FantasyFlow.py
 
 ## FSL-MS-Simulator
