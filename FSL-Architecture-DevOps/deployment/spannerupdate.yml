@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: spanner-updater
+  name: spanner-updater
+spec:
+  replicas: 15
+  selector:
+    matchLabels:
+      app: spanner-updater 
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: spanner-updater
+      name: spanner-updater
+    spec:
+     containers:
+      - name: spanner-updater
+        image: gcr.io/fsl-gaming/spannerupdater:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5012
+        resources:
+          requests:
+            memory: "450Mi"
+            cpu: "450m"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spanner-updater
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+#    cloud.google.com/backend-config: '{"ports": {"80":"fsl-backendconfig"}}'
+  labels:
+    app: spanner-updater
+spec:
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      targetPort: 5007
+  selector:
+    app: spanner-updater
+  type: NodePort
