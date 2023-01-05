@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fsl-simulator-mcr
+  name: fsl-simulator-mcr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fsl-simulator-mcr 
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: fsl-simulator-mcr
+      name: fsl-simulator-mcr
+    spec:
+     containers:
+      - name: fsl-simulator-mcr
+        image: gcr.io/fsl-gaming/ms-simulator:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5007
+        resources:
+          requests:
+            memory: "450Mi"
+            cpu: "450m"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fsl-simulator-mcr
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+#    cloud.google.com/backend-config: '{"ports": {"80":"fsl-backendconfig"}}'
+  labels:
+    app: fsl-simulator-mcr
+spec:
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      targetPort: 5007
+  selector:
+    app: fsl-simulator-mcr
+  type: NodePort

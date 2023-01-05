@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fsl-mcr
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+#    cloud.google.com/backend-config: '{"ports": {"80":"fsl-backendconfig"}}'
+  labels:
+    app: fsl-mcr
+spec:
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      targetPort: 5007
+  selector:
+    app: fsl-mcr
+  type: NodePort

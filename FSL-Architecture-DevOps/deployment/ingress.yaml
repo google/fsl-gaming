@@ -1,0 +1,79 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fsl-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    #nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  tls:
+  - hosts:
+      - fsl-gaming.niveussolutions.com
+    secretName: ssl-cert-production
+  rules:
+    - host: fsl-gaming.niveussolutions.com
+      http:
+        paths:
+          - path: /resource-management
+            pathType: Prefix
+            backend:
+              service:
+                name: fsl-mcr
+                port:
+                  number: 80
+          - path: /update-leaderboard
+            pathType: Prefix
+            backend:
+              service:
+                name: fsl-upd-ldr-brd-mcr
+                port:
+                  number: 80
+          - path: /display-leaderboard
+            pathType: Prefix
+            backend:
+              service:
+                name: fsl-dsp-ldr-brd-mcr
+                port:
+                  number: 80
+          - path: /simulator
+            pathType: Prefix
+            backend:
+              service:
+                name: fsl-simulator-mcr
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: locust-master
+                port:
+                  number: 8089
+          - path: /redis-listner
+            pathType: Prefix
+            backend:
+              service:
+                name: redis-listener
+                port:
+                  number: 80
+          - path: /simulator-listner
+            pathType: Prefix
+            backend:
+              service:
+                name: simulate-listener
+                port:
+                  number: 80
+          - path: /spanner-updater
+            pathType: Prefix
+            backend:
+              service:
+                name: spanner-updater
+                port:
+                  number: 80
+          - path: /update-score-listener
+            pathType: Prefix
+            backend:
+              service:
+                name: update-score-listener
+                port:
+                  number: 80
