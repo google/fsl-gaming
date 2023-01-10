@@ -8,6 +8,7 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: fsl-gaming.niveussolutions.com
+    # add domain name here eg. test.google.com
+  commonName: <domain name>
   dnsNames:
-  - fsl-gaming.niveussolutions.com
+  - <dns name>
