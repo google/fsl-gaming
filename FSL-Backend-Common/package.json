@@ -31,7 +31,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.niveussolutions.com:fsl-gaming/fsl-gaming/fsl-backend-common.git"
+    #add domain name here
+    "url": "git@github.<domain>:fsl-gaming/fsl-gaming/fsl-backend-common.git"
   },
   "author": "Niveus Solutions",
   "license": "Unlicense",
