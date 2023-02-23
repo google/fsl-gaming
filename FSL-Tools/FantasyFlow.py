@@ -33,7 +33,7 @@ import time
 import sys
 
 class MyUser(HttpUser):
-    host = "http://fsl-gaming.niveussolutions.com"
+    host = "https://YOURDOMAIN.com"
 
     @task
     def index(self):
