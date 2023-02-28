@@ -24,7 +24,7 @@ metadata:
     app: locust-worker
   name: locust-worker
 spec:
-  replicas: 5
+  replicas: 15
   selector:
     matchLabels:
       role: locust-worker
@@ -44,7 +44,7 @@ spec:
       - image: locustio/locust
         imagePullPolicy: Always
         name: worker
-        args: ["--worker", "--master-host=locust-master"]
+        args: ["--worker", "--master-host=locust-master-service"]
         volumeMounts:
           - mountPath: /home/locust
             name: locust-scripts
@@ -61,7 +61,7 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
-      terminationGracePeriodSeconds: 30
+      terminationGracePeriodSeconds: 20
       volumes:
       - name: locust-scripts
         configMap:

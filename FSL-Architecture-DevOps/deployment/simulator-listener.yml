@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: redis-listener
-  name: redis-listener
+    app: simulate-listener
+  name: simulate-listener
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: redis-listener 
+      app: simulate-listener 
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,12 +17,12 @@ spec:
   template:
     metadata:
       labels:
-        app: redis-listener
-      name: redis-listener
+        app: simulate-listener
+      name: simulate-listener
     spec:
      containers:
-      - name: redis-listener
-        image: gcr.io/my-demo-project-314117/redis-listener:latest
+      - name: simulate-listener
+        image: gcr.io/my-demo-project-314117/simulator-listener:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5013
@@ -31,17 +31,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-listener
+  name: simulate-listener
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
 #    cloud.google.com/backend-config: '{"ports": {"80":"fsl-backendconfig"}}'
   labels:
-    app: redis-listener
+    app: simulate-listener
 spec:
   ports:
     # the port that this service should serve on 5007
     - port: 80
       targetPort: 5013
   selector:
-    app: redis-listener
+    app: simulate-listener
   type: ClusterIP

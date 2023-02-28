@@ -18,8 +18,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    role: locust-master
-  name: locust-master
+    role: locust-master-service
+  name: locust-master-service
 spec:
   type: NodePort
   ports:

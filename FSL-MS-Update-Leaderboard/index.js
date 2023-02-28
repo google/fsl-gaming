@@ -18,10 +18,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
-
 require('dotenv').config();
 require('../FSL-Backend-Common/utils/tracing');
-
 
 const path = require('path');
 const http = require('http');
@@ -54,16 +52,21 @@ const { processRequestParams } = require('../FSL-Backend-Common/methods/processR
 const swaggerConfig = YAML.load('./api/swagger.yaml');
 
 module.exports = app;
-app.use(cors(process.env.NODE_ENV !== 'development'
-  ? { origin: `${process.env.APPLICATION_URL}` } : ''));
+app.use(
+    cors({
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "preflightContinue": false,
+        "optionsSuccessStatus": 204
+    })
+);
+// app.use(cors(process.env.NODE_ENV !== 'development' ? { origin: `${process.env.APPLICATION_URL}` } : ''));
 app.set('lastModified', false);
-
 
 const serverPort = process.env.PORT;
 app.use(express.json());
 
 app.use(processRequestParams);
-
 
 // swaggerRouter configuration
 const options = {
@@ -71,7 +74,6 @@ const options = {
   controllers: path.join(__dirname, './api/controllers'),
   useStubs: true, // Conditionally turn on stubs (mock mode)
 };
-
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerConfig, (middleware) => {

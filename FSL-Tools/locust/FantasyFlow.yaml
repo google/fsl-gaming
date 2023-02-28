@@ -20,7 +20,6 @@ metadata:
   name: scripts-cm
 data:
   locustfile.py: |
-    import imp
     from locust import task, HttpUser
     import json
     import random
@@ -28,7 +27,7 @@ data:
     import sys
 
     class MyUser(HttpUser):
-        host = "http://fsl-gaming.niveussolutions.com"
+        host = "https://fsl.danielnwang.demo.altostrat.com"
 
         @task
         def index(self):
@@ -37,7 +36,7 @@ data:
                 'Accept': 'application/json'
             })
 
-            contestUuid = '16ab9cad-d067-4ee3-a354-c9fc4a33ac49'
+            contestUuid = 'e5e64157-f224-4b6a-b056-86a058655e14'
             number = ''
             number = str(random.randint(6, 9))
             for i in range(1, 10):
@@ -52,6 +51,7 @@ data:
             ft1Resp = self.client.post("/resource-management/api/fantasy-team-details", data=json.dumps({"userUuid": userUuid, "contestUuid": contestUuid}))
             ft1Resp = json.loads(ft1Resp.text)
             if ft1Resp['status'] != 200:
+                temp = 'no print'
                 print('Contest Full')
             else:
                 fantasyTeamUuid = ft1Resp['data']['fantasyTeamUuid']
@@ -60,8 +60,8 @@ data:
                 ftsResp = self.client.post("/resource-management/api/fantasy-team-squad-details-bulk",data=json.dumps({"fantasyTeamUuid": fantasyTeamUuid}))
                 ftsResp = json.loads(ftsResp.text)
                 
-            print('***********************************************************************************')
-            print('###################################################################################')
-            print('***********************************************************************************')
-            time.sleep(2)
+            # print('***********************************************************************************')
+            # print('###################################################################################')
+            # print('***********************************************************************************')
+            time.sleep(1)
             

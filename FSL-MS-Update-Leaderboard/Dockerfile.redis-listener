@@ -13,7 +13,7 @@ WORKDIR /FSL-Backend-Common
 
 RUN npm install
 
-COPY /FSL-MS-Display-Leaderboard /app
+COPY /FSL-MS-Update-Leaderboard /app
 
 WORKDIR /app
 
@@ -21,4 +21,4 @@ RUN npm install
 
 EXPOSE 5013
 
-CMD ["node", "index.js"]
+CMD ["node", "updateRedisListener.js"]

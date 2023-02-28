@@ -18,10 +18,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
-
 require('dotenv').config();
 require('../FSL-Backend-Common/utils/tracing');
-
 
 const path = require('path');
 const http = require('http');
@@ -46,7 +44,6 @@ helmet.hsts({
   preload: true,
 }));
 
-
 const logger = require('../FSL-Backend-Common/utils/logger');
 const { checkEnvVariables } = require('../FSL-Backend-Common/methods/checkEnvVariables');
 const { processRequestParams } = require('../FSL-Backend-Common/methods/processRequest');
@@ -58,19 +55,23 @@ app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
     return res.status(400).json({ status: 400 }); // Bad request
   }
-
   next();
 });
-app.use(cors(process.env.NODE_ENV !== 'development'
-  ? { origin: `${process.env.APPLICATION_URL}` } : ''));
+app.use(
+    cors({
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "preflightContinue": false,
+        "optionsSuccessStatus": 204
+    })
+);
+// app.use(cors(process.env.NODE_ENV !== 'development' ? { origin: `${process.env.APPLICATION_URL}` } : ''));
 app.set('lastModified', false);
-
 
 const serverPort = 5007;
 app.use(express.json());
 
 app.use(processRequestParams);
-
 
 // swaggerRouter configuration
 const options = {
@@ -78,7 +79,6 @@ const options = {
   controllers: path.join(__dirname, './api/controllers'),
   useStubs: true, // Conditionally turn on stubs (mock mode)
 };
-
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerConfig, (middleware) => {

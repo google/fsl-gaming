@@ -13,7 +13,7 @@ WORKDIR /FSL-Backend-Common
 
 RUN npm install
 
-COPY /FSL-MS-Display-Leaderboard /app
+COPY /FSL-MS-Update-Leaderboard /app
 
 WORKDIR /app
 

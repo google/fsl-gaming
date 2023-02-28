@@ -68,18 +68,18 @@ exports.createFantasyTeamDetails = params => new Promise(async (resolve, reject)
     const createdTS = new Date();
     const lastUpdatedTS = new Date();
     let error = '';
-    const [contestRecord, fantasyTeamId] = await Promise.all([
+    const [contestRecord] = await Promise.all([
       // runSelect('SELECT userUuid from UserDetails WHERE userUuid=@userUuid', {
       //   userUuid,
       // }),
       runSelect('SELECT contestUuid,team1Uuid,team2Uuid,slot,contestStatus from ContestDetails WHERE contestUuid=@contestUuid', {
         contestUuid,
-      }),
+      })
 
       // TODO: Optimize
-      runSelect('SELECT COUNT(*) FROM fantasyTeamDetails WHERE contestUuid=@contestUuid', {
-        contestUuid,
-      }),
+      // runSelect('SELECT COUNT(*) FROM fantasyTeamDetails WHERE contestUuid=@contestUuid', {
+      //  contestUuid,
+      // }),
 
       // runSelect('SELECT ContestLeaderUuid from ContestLeaderboard WHERE fantasyTeamUuid=@fantasyTeamUuid', {
       //   fantasyTeamUuid,
@@ -96,10 +96,11 @@ exports.createFantasyTeamDetails = params => new Promise(async (resolve, reject)
     // if (!(Array.isArray(contestRecord) && contestRecord.length)) {
     //   error += error ? ' && contestUuid' : 'contestUuid';
     // }
-    if ((fantasyTeamId.length > contestRecord[0].slot)) {
-      error = 'Contest Full';
-    }
-    if (!error && contestRecord[0].contestStatus === 'SCHEDULED') {
+    // if ((fantasyTeamId.length > contestRecord[0].slot)) {
+    //  error = 'Contest Full';
+    //}
+    // if (!error && contestRecord[0].contestStatus === 'SCHEDULED') {
+    if (contestRecord[0].contestStatus === 'SCHEDULED') {
       const { team1Uuid } = contestRecord[0];
       const { team2Uuid } = contestRecord[0];
       const FantasyTeamData = {

@@ -24,7 +24,6 @@ const contestLeaderBoardService = require('../service/ContestLeaderboardService'
 
 exports.createContestLeaderboard = params => contestLeaderBoardService.createContestLeaderboard(params);
 
-
 exports.getAllContestLeaderboard = () => contestLeaderBoardService.getAllContestLeaderboard();
 
 exports.getContestLeaderboardByID = params => contestLeaderBoardService.getContestLeaderboardByID(params);

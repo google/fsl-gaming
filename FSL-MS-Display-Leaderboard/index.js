@@ -18,9 +18,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
-
 require('dotenv').config();
-
 
 const path = require('path');
 const http = require('http');
@@ -45,7 +43,6 @@ helmet.hsts({
   preload: true,
 }));
 
-
 const logger = require('../FSL-Backend-Common/utils/logger');
 const { checkEnvVariables } = require('../FSL-Backend-Common/methods/checkEnvVariables');
 const { processRequestParams } = require('../FSL-Backend-Common/methods/processRequest');
@@ -53,8 +50,15 @@ const { processRequestParams } = require('../FSL-Backend-Common/methods/processR
 const swaggerConfig = YAML.load('./api/swagger.yaml');
 
 module.exports = app;
-app.use(cors(process.env.NODE_ENV !== 'development'
-  ? { origin: `${process.env.APPLICATION_URL}` } : ''));
+app.use(
+    cors({
+        "origin": "*",
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "preflightContinue": false,
+        "optionsSuccessStatus": 204
+    })
+);
+// app.use(cors(process.env.NODE_ENV !== 'development' ? { origin: `${process.env.APPLICATION_URL}` } : ''));
 app.set('lastModified', false);
 
 

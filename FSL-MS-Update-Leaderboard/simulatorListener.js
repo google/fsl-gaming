@@ -28,7 +28,7 @@ const logger = require('../FSL-Backend-Common/utils/logger');
 const { checkEnvVariables } = require('../FSL-Backend-Common/methods/checkEnvVariables');
 const { URLS } = require('../FSL-Backend-Common/config/constants');
 const { runSelect } = require('../FSL-Backend-Common/database/spanner');
-const pubsubService = require('../FSL-Backend-Common/utils/pubsub')
+const pubsubService = require('../FSL-Backend-Common/utils/pubsub');
 
 const serviceAccountData = JSON.parse(fs.readFileSync(`../FSL-Backend-Common/credentials/project-${process.env.NODE_ENV}/service_account_key.json`));
 const projectId = serviceAccountData.project_id;
@@ -175,5 +175,6 @@ function main() {
         listenForMessages(process.env.PUBSUB_SIMULATOR_SUBSCRIPTION_ID);
     }
 }
+
 checkEnvVariables();
 main();

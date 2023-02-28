@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.allow-http: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+
+spec:
+  tls:
+  - hosts:
+    - fsl.danielnwang.demo.altostrat.com
+    secretName: nginx-tls
+  rules:
+  - host: fsl.danielnwang.demo.altostrat.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web
+            port:
+              number: 8080

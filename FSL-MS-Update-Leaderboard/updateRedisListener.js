@@ -22,7 +22,6 @@
 require('dotenv').config();
 require('../FSL-Backend-Common/utils/tracing');
 
-
 const axios = require('axios').default;
 const fs = require('fs');
 const { PubSub } = require('@google-cloud/pubsub');
@@ -32,10 +31,8 @@ const { Spanner } = require('../FSL-Backend-Common/database/spanner');
 const { URLS } = require('../FSL-Backend-Common/config/constants');
 const pubsubService = require('../FSL-Backend-Common/utils/pubsub')
 
-
 const serviceAccountData = JSON.parse(fs.readFileSync(`../FSL-Backend-Common/credentials/project-${process.env.NODE_ENV}/service_account_key.json`));
 const projectId = serviceAccountData.project_id;
-
 
 function main() {
     const subscriberOptions = {
@@ -130,5 +127,6 @@ function main() {
         listenForMessages(process.env.PUBSUB_REDIS_SUBSCRIPTION_ID);
     }
 }
+
 checkEnvVariables();
 main();

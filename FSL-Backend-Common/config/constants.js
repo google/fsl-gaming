@@ -71,13 +71,10 @@ exports.URLS = {
         'simulator': 'http://localhost:5008/simulator/api',
     },
     uat: {
-        'resource-management':
-            'https://fsl-gaming.niveussolutions.com/resource-management/api',
-        'update-leaderboard':
-            'https://fsl-gaming.niveussolutions.com/update-leaderboard/api',
-        'display-leaderboard':
-            'https://fsl-gaming.niveussolutions.com/display-leaderboard/api',
-        'simulator': 'https://fsl-gaming.niveussolutions.com/simulator/api',
+        'resource-management': 'https://fsl.danielnwang.demo.altostrat.com/resource-management/api',
+        'update-leaderboard': 'https://fsl.danielnwang.demo.altostrat.com/update-leaderboard/api',
+        'display-leaderboard': 'https://fsl.danielnwang.demo.altostrat.com/display-leaderboard/api',
+        'simulator': 'https://fsl.danielnwang.demo.altostrat.com/simulator/api',
     },
 }
 exports.REDIS_BUCKET = {

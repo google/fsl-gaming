@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ingress
+  annotations:
+    kubernetes.io/ingress.class: gce
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.global-static-ip-name: web-ip
+    cert-manager.io/issue-temporary-certificate: "true"
+    cert-manager.io/issuer: letsencrypt-production
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  tls:
+    - secretName: ssl-cert
+      hosts:
+        - fslgame.danielnwang.demo.altostrat.com
+  rules:
+    - host: fslgame.danielnwang.demo.altostrat.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: web
+              port:
+                number: 8080

@@ -18,14 +18,12 @@
 
 import sys
 
-
 def main(argv):
     pass
 
-
 if __name__ == '__main__':
     main(sys.argv)
-import imp
+
 from locust import task, HttpUser
 import json
 import random
@@ -33,7 +31,7 @@ import time
 import sys
 
 class MyUser(HttpUser):
-    host = "http://fsl-gaming.niveussolutions.com"
+    host = "https://fsl.danielnwang.demo.altostrat.com"
 
     @task
     def index(self):
@@ -42,19 +40,20 @@ class MyUser(HttpUser):
             'Accept': 'application/json'
         })
 
-        contestUuid = '4b22b767-edbf-4094-8e29-14a978d8f54c'
+        contestUuid = 'a175ace5-e8ed-4f95-bf6c-e99f0f4bc92e'
         number = ''
         number = str(random.randint(6, 9))
         for i in range(1, 10):
             number += str(random.randint(0, 9))
         print(number)
         self.number = number
-        userResp = self.client.post("/resource-management/api/createUser", data=json.dumps({"mobileNumber": number}))
+        userResp = self.client.post("/resource-management/api/user", data=json.dumps({"mobileNumber": number}))
+        print(userResp.text)
         userresp = json.loads(userResp.text)
         userUuid = userresp['data']['userUuid']
-        print(userUuid)
+        print('User Uuid -', userUuid)
 
-        ft1Resp = self.client.post("/resource-management/api/createFantasyTeamDetails", data=json.dumps({"userUuid": userUuid, "contestUuid": contestUuid}))
+        ft1Resp = self.client.post("/resource-management/api/fantasy-team-details", data=json.dumps({"userUuid": userUuid, "contestUuid": contestUuid}))
         # time.sleep(0.02)
         ft1Resp = json.loads(ft1Resp.text)
         if ft1Resp['status'] != 200:
@@ -63,10 +62,7 @@ class MyUser(HttpUser):
             fantasyTeamUuid = ft1Resp['data']['fantasyTeamUuid']
             print('Fantasy Team Uuid -', fantasyTeamUuid)
             
-            ftsResp = self.client.post("/resource-management/api/createFantasyTeamSquadDetailsBulk",data=json.dumps({"fantasyTeamUuid": fantasyTeamUuid}))
+            ftsResp = self.client.post("/resource-management/api/fantasy-team-squad-details-bulk",data=json.dumps({"fantasyTeamUuid": fantasyTeamUuid}))
             ftsResp = json.loads(ftsResp.text)
             
-        print('***********************************************************************************')
-        print('###################################################################################')
-        print('***********************************************************************************')
-        time.sleep(2)
+        time.sleep(1)

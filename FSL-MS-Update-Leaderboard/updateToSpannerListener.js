@@ -32,7 +32,6 @@ const { bulkUpdate, Spanner } = require('../FSL-Backend-Common/database/spanner'
 const serviceAccountData = JSON.parse(fs.readFileSync(`../FSL-Backend-Common/credentials/project-${process.env.NODE_ENV}/service_account_key.json`));
 const projectId = serviceAccountData.project_id;
 
-
 function main() {
     // Imports the Google Cloud client library
     const subscriberOptions = {
@@ -88,5 +87,6 @@ function main() {
         listenForMessages(process.env.PUBSUB_SUBSCRIPTION_ID);
     }
 }
+
 checkEnvVariables();
 main();

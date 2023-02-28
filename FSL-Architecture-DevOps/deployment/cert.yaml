@@ -4,11 +4,10 @@ metadata:
   name: ssl-cert-production
   namespace: default
 spec:
-  secretName: ssl-cert-production
+  secretName: ssl-cert-secret
   issuerRef:
     name: letsencrypt-production
-    kind: ClusterIssuer
-    # add domain name here eg. test.google.com
-  commonName: <domain name>
+    kind: Issuer
+  commonName: fslgame.danielnwang.demo.altostrat.com
   dnsNames:
-  - <dns name>
+  - fslgame.danielnwang.demo.altostrat.com

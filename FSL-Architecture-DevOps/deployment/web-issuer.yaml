@@ -1,0 +1,15 @@
+# issuer-lets-encrypt-staging.yaml
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: danielnwang@google.com
+    privateKeySecretRef:
+      name: letsencrypt-production
+    solvers:
+    - http01:
+        ingress:
+          name: web-ingress
