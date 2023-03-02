@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: locust-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.allow-http: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    #nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  tls:
+  - hosts:
+      - locust.danielnwang.demo.altostrat.com
+    secretName: ssl-cert-production
+  rules:
+    - host: locust.danielnwang.demo.altostrat.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: locust-master-service
+                port:
+                  number: 8089
