@@ -1,0 +1,143 @@
+steps:
+  # get GKE credentials
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['container', 'clusters', 'get-credentials', '$GKE_CLUSTER_NAME', '--zone=$GKE_ZONE']
+    env:
+      - 'GKE_CLUSTER_NAME=fsl-demo-cluster'
+      - 'GKE_ZONE=us-west1-a'
+
+  # install ngnix ingress
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml']
+
+  # install cert manager
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml']
+
+  # Clone the repository
+  - name: 'gcr.io/cloud-builders/git'
+    args: 
+    - clone
+    - https://github.com/google/fsl-gaming.git
+    - demo
+
+  # start of docker build
+
+  # build the redis-listener image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/redis-listener:latest', '-f', 'Dockerfile.redis-listener', './demo']
+
+  # push the redis-listener image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/redis-listener:latest']
+
+  # build the spanner-update-listener image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/spanner-update-listener:latest', '-f', 'Dockerfile.spanner-update-listener', './demo']
+
+  # push the spanner-update-listener image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/spanner-update-listener:latest']
+
+  # build the score-update-listener image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/score-update-listener:latest', '-f', 'Dockerfile.score-update-listener', './demo']
+
+  # push the score-update-listener image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/score-update-listener:latest']
+
+  # build the simulator-listener image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/simulator-listener:latest', '-f', 'Dockerfile.simulator-listener', './demo']
+
+  # push the simulator-listener image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/simulator-listener:latest']
+
+  # build the simulator image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/simulator:latest', '-f', 'Dockerfile.simulator', './demo']
+
+  # push the simulator image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/simulator:latest']
+
+  # build the display-leaderboard image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/display-leaderboard:latest', '-f', 'Dockerfile.display-leaderboard', './demo']
+
+  # push the display-leaderboard image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/display-leaderboard:latest']
+
+  # build the update-leaderboard image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/update-leaderboard:latest', '-f', 'Dockerfile.update-leaderboard', './demo']
+
+  # push the update-leaderboard image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/update-leaderboard:latest']
+
+  # build the resource-management image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/resource-management:latest', '-f', 'Dockerfile.resource-management', './demo']
+
+  # push the resource-management image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/resource-management:latest']
+
+  # start of k8s deployment
+
+  # install cluster issuer for cert
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/cluster-issuer.yaml']
+
+  # deploy redis listener
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/redis-listener.yaml']
+
+  # deploy spanner update listener
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/spanner-update-listener.yaml']
+
+  # deploy score update listener
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/score-update-listener.yaml']
+
+  # deploy simulator listener
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/simulator-listener.yaml']
+
+  # deploy simulator
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/simulator.yaml']
+
+  # deploy update leaderboard
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/update-leaderboard.yaml']
+  
+  # deploy display leaderboard
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/display-leaderboard.yaml']
+
+  # deploy resource management
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/resource-management.yaml']
+
+  # deploy ingress
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/ingress.yaml']
+
+images:
+  - 'gcr.io/$PROJECT_ID/redis-listener:latest'
+  - 'gcr.io/$PROJECT_ID/spanner-update-listener:latest'
+  - 'gcr.io/$PROJECT_ID/score-update-listener:latest'
+  - 'gcr.io/$PROJECT_ID/simulator-listener:latest'
+  - 'gcr.io/$PROJECT_ID/simulator:latest'
+  - 'gcr.io/$PROJECT_ID/display-leaderboard:latest'
+  - 'gcr.io/$PROJECT_ID/update-leaderboard:latest'
+  - 'gcr.io/$PROJECT_ID/resource-management:latest'
+
+# timeout in 2 hours
+timeout: 7200s

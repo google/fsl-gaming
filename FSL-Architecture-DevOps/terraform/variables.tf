@@ -20,22 +20,22 @@ variable "VPC_NAME" {
 
 variable "SPANNER_TOPIC" {
   type    = string
-  default = "pushToSpannerTest"
+  default = "pushToSpanner"
 }
 
 variable "SIMULATOR_TOPIC" {
   type    = string
-  default = "simulatorTest"
+  default = "simulatorScore"
 }
 
 variable "REDIS_TOPIC" {
   type    = string
-  default = "updateRedisTest"
+  default = "updateRedis"
 }
 
 variable "SCORE_TOPIC" {
   type    = string
-  default = "updateScoreTest"
+  default = "updateScore"
 }
 
 variable "REDIS_INST_NAME" {
