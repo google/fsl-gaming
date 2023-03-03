@@ -1,19 +1,4 @@
 steps:
-  # get GKE credentials
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['container', 'clusters', 'get-credentials', '$GKE_CLUSTER_NAME', '--zone=$GKE_ZONE']
-    env:
-      - 'GKE_CLUSTER_NAME=locust-cluster'
-      - 'GKE_ZONE=us-west1-a'
-
-  # install ngnix ingress
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml']
-
-  # install cert manager
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml']
-
   # Clone the repository
   - name: 'gcr.io/cloud-builders/git'
     args: 
@@ -22,30 +7,34 @@ steps:
     - demo
 
   # start of locust deployment
-
-  # install cluster issuer for cert
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', './demo/FSL-Architecture-DevOps/deployment/cluster-issuer.yaml']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud container clusters get-credentials --project="$PROJECT_ID" --zone="$_ZONE" "$_CONTAINER_CLUSTER"
+        kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+        sleep 60
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+        sleep 60
+        kubectl apply -f ./demo/FSL-Tools/locust/locust-scripts.yaml
+        sleep 30
+        kubectl apply -f ./demo/FSL-Tools/locust/locust-master.yaml
+        sleep 30
+        kubectl apply -f ./demo/FSL-Tools/locust/locust-service.yaml
+        sleep 60
+        kubectl apply -f ./demo/FSL-Tools/locust/locust-slave.yaml
+        sleep 60
+        kubectl apply -f ./demo/FSL-Architecture-DevOps/deployment/cluster-issuer.yaml
+        sleep 60
+        kubectl apply -f ./demo/FSL-Tools/locust/locust-ingress.yaml
 
-  # deploy locust scripts
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', './demo/FSL-Tools/locust/locust-scripts.yaml']
-
-  # deploy locust master
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', './demo/FSL-Tools/locust/locust-master.yaml']
-
-  # deploy locust master service
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', './demo/FSL-Tools/locust/locust-service.yaml']
-
-  # deploy locust slave
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', './demo/FSL-Tools/locust/locust-slave.yaml']
-
-  # deploy simulator
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', './demo/FSL-Tools/locust/locust-ingress.yaml']
+substitutions:
+  _ZONE: us-west1-a
+  _CONTAINER_CLUSTER: locust-cluster
+  
+options:
+  dynamic_substitutions: true
 
 # timeout in 2 hours
 timeout: 7200s

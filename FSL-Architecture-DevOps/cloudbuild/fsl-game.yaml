@@ -1,11 +1,4 @@
 steps:
-  # get GKE credentials
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['container', 'clusters', 'get-credentials', '$GKE_CLUSTER_NAME', '--zone=$GKE_ZONE']
-    env:
-      - 'GKE_CLUSTER_NAME=fsl-demo-cluster'
-      - 'GKE_ZONE=us-west1-a'
-
   # install ngnix ingress
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['apply', '-f', 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml']
@@ -138,6 +131,11 @@ images:
   - 'gcr.io/$PROJECT_ID/display-leaderboard:latest'
   - 'gcr.io/$PROJECT_ID/update-leaderboard:latest'
   - 'gcr.io/$PROJECT_ID/resource-management:latest'
+
+options:  
+  env: 
+    - CLOUDSDK_COMPUTE_ZONE=us-west1-a
+    - CLOUDSDK_CONTAINER_CLUSTER=fsl-demo-cluster
 
 # timeout in 2 hours
 timeout: 7200s
