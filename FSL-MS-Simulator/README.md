@@ -1,7 +1,7 @@
 # FSL-GAMING
 FSL Gaming is a cricket based fantasy game where a live match between two teams are played and users create their own virtual teams based out of cricket team of 11 players from a forthcoming match and the primary goal in this fantasy cricket game is to score as many points as possible and climb the leaderboard by defeating your opponents. 
 ### Pre requisite
-To Run FSL- Gamming you need to have
+To Run FSL- Gaming you need to have
  - Node JS
  - Google Kubernetes Engine
  - Google Spanner
@@ -29,7 +29,7 @@ In the project directory,Install all the project dependencies for the FSL-Backen
  npm install
  ```
  ### Step 2 :  FSL-Resource-Management
- FSL-Resource-Management project contains all the CRUD operation api's needed to run the FSL-gamming. It contains api's for Users,Teams,Match,Contest,Fantasy-team.
+ FSL-Resource-Management project contains all the CRUD operation api's needed to run the FSL-gaming. It contains api's for Users,Teams,Match,Contest,Fantasy-team.
 To run the FSL-Resource-Management project you need to have one more project FSL-Backend-Common in same root directory then only you can follow the below steps for execution for project.
 
 Now open the Resource-Management directory
