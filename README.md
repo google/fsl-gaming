@@ -212,3 +212,5 @@ Response Example:
   }
 }
 ```
+## Entity Relationship diagram
+![[IMG 9]FantasyTeamDetails_Relationships.png](images/[IMG 9]FantasyTeamDetails_Relationships.png)
