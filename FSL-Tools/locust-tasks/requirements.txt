@@ -6,7 +6,7 @@ ConfigArgParse==1.5.3
 Flask==2.2.2
 Flask-BasicAuth==0.2.0
 Flask-Cors==3.0.10
-gevent==22.10.2
+gevent==23.9.1
 geventhttpclient==2.0.8
 greenlet==2.0.1
 idna==3.4
